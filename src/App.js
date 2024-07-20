@@ -15,7 +15,9 @@ function App() {
         
         <Routes>
           {user && <Route path='/userDashboard' element={<UserDashboard/>}/>}
-
+          <Route path="/Home" element={<Home/>}/>
+          <Route path='/' element={<Login/>}/>
+          <Route path="/signup" element={<Signup/>}/>
           <Route path="/" element={<Navbar/>}/>
         </Routes>
         
