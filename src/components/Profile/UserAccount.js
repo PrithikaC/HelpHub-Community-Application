@@ -51,7 +51,7 @@ const Account = () => {
             } catch (error) {
                 console.error("Error fetching user:", error);
                 setError(`Error fetching user: ${error.message}`);
-                navigate('/login');
+                navigate('/loginUser');
             }
         };
 
