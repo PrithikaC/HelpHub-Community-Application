@@ -21,7 +21,7 @@ const ServiceProviderAccount = () => {
         const fetchUserDetails = async () => {
             if (!token) {
                 setError('No token found in local storage.');
-                navigate('/login');
+                navigate('/loginServ');
                 return;
             }
 
@@ -66,6 +66,10 @@ const ServiceProviderAccount = () => {
         navigate('/servUpdateProfile');
     };
 
+    const handleBack = () =>{
+        navigate("/serviceProviderDashboard")
+    }
+
     return (
         <div className="container mt-5">
             <h1 className="mb-4 text-center text-dark-green">Service Provider Details</h1>
@@ -82,6 +86,7 @@ const ServiceProviderAccount = () => {
                         <p className="card-text"><strong>Service Type:</strong> {userDetails.serviceType}</p>
                         <p className="card-text"><strong>Experience:</strong> {userDetails.experience} years</p>
                         <button onClick={handleEditClick} className="btn btn-dark-green btn-lg">Edit Profile</button>
+                        <button onClick={handleBack} className="btn btn-secondary m-3 btn-lg">Back</button>
                     </div>
                 </div>
             ) : (
@@ -104,6 +109,7 @@ const ServiceProviderAccount = () => {
 
                 .btn-dark-green:hover {
                     background-color: #003300; /* Even darker green for hover effect */
+                    color:white;
                 }
 
                 .shadow-lg {
