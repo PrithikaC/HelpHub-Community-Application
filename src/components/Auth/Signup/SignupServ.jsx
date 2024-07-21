@@ -8,7 +8,11 @@ const SignupServ = () => {
         firstName: "",
         lastName: "",
         email: "",
-        password: ""
+        password: "",
+        phoneNumber: "",
+        city: "",
+        serviceType: "",
+        experience: ""
     });
 
     const navigate = useNavigate();
@@ -21,7 +25,7 @@ const SignupServ = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const url = "http://localhost:8080/api/users";
+            const url = "http://localhost:8080/api/serviceProvider";
             const { data: res } = await axios.post(url, data);
 
             navigate("/loginServ");
@@ -85,15 +89,49 @@ const SignupServ = () => {
                             required
                             className={styles.input}
                         />
+                        <input
+                            type="text"
+                            placeholder='Phone Number'
+                            name='phoneNumber'
+                            onChange={handleChange}
+                            value={data.phoneNumber}
+                            required
+                            className={styles.input}
+                        />
+                        <input
+                            type="text"
+                            placeholder='City'
+                            name='city'
+                            onChange={handleChange}
+                            value={data.city}
+                            required
+                            className={styles.input}
+                        />
+                        <input
+                            type="text"
+                            placeholder='Service Type'
+                            name='serviceType'
+                            onChange={handleChange}
+                            value={data.serviceType}
+                            required
+                            className={styles.input}
+                        />
+                        <input
+                            type="number"
+                            placeholder='Experience'
+                            name='experience'
+                            onChange={handleChange}
+                            value={data.experience}
+                            required
+                            className={styles.input}
+                        />
                         {error && <div className={styles.error_msg}>{error}</div>}
                         <button type="submit" className={styles.green_btn}>
                             Sign Up
                         </button>
-                       
                     </form>
                 </div>
             </div>
-           
         </div>
     );
 };
