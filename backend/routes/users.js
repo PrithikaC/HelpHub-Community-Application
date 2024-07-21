@@ -42,7 +42,7 @@ router.get('/exists/:id', async (req, res) => {
 // Route to get user details
 router.get("/:id", async (req, res) => {
     try {
-        const user = await User.findById(req.params.id).select('email firstName lastName'); // Fetch email, firstName, lastName
+        const user = await User.findById(req.params.id).select('email firstName lastName phoneNumber address'); // Fetch email, firstName, lastName, phoneNumber, and address
         if (user) {
             res.status(200).send(user);
         } else {
@@ -52,5 +52,31 @@ router.get("/:id", async (req, res) => {
         res.status(500).send({ message: "Internal server error" });
     }
 });
+
+// Route to update profile
+router.post('/updateProfile', async (req, res) => {
+    const { _id, firstName, lastName, email, phoneNumber, address } = req.body;
+
+    try {
+        const user = await User.findById(_id);
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
+        user.firstName = firstName;
+        user.lastName = lastName;
+        user.email = email;
+        user.phoneNumber = phoneNumber; // Ensure this field is defined in your schema
+        user.address = address; // Ensure this field is defined in your schema
+
+        await user.save();
+
+        res.json({ success: true, message: 'Profile updated successfully' });
+    } catch (error) {
+        console.error('Server error:', error); // Log the error
+        res.status(500).json({ success: false, message: 'Server error: ' + error.message });
+    }
+});
+
 
 module.exports = router;
