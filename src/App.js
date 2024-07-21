@@ -7,8 +7,8 @@ import Home from './components/Home/Home';
 import Navbar from './components/Common/Navbar';
 import UserDashboard from './components/Dashboard/UserDashboard';
 import {Route, Routes } from 'react-router-dom';
-import UpdateProfile from './Profile/UpdateProfile';
-import Account from './Profile/Account';
+import UpdateProfile from './components/Profile/UpdateProfile';
+import Account from './components/Profile/Account';
 
 function App() {
   const user = localStorage.getItem("token");
