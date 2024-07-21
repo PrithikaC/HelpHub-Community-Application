@@ -53,4 +53,26 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+// Route to update profile
+router.post('/updateProfile', async (req, res) => {
+    const { _id, firstname, lastname, email } = req.body;
+
+    try {
+        const user = await User.findById(_id);
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
+        user.firstName = firstname;
+        user.lastName = lastname;
+        user.email = email;
+
+        await user.save();
+
+        res.json({ success: true, message: 'Profile updated successfully' });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Server error: ' + error.message });
+    }
+});
+
 module.exports = router;

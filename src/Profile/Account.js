@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {jwtDecode} from 'jwt-decode'; // Correct import
+import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 
 const Account = () => {
@@ -54,7 +54,7 @@ const Account = () => {
     }, [token, navigate]);
 
     const handleEditClick = () => {
-        navigate('/update-profile');
+        navigate('/updateProfile');
     };
 
     return (

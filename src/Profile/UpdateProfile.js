@@ -1,56 +1,118 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 
-function UpdateProfile() {
-    const [user, setUser] = useState(null);
-    const navigate = useNavigate();
-
-    const fetchUserData = useCallback(async (token) => {
-        try {
-            const response = await fetch('http://localhost:8080/api/users/me', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            });
-
-            if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(`Failed to fetch user data. Status: ${response.status}. ${errorText}`);
-            }
-
-            const data = await response.json();
-            setUser(data);
-        } catch (error) {
-            console.error('Error fetching user data:', error);
-            navigate('/login');
-        }
-    }, [navigate]);
+const UpdateProfile = () => {
+    const [formData, setFormData] = useState({
+        firstname: '',
+        lastname: '',
+        email: ''
+    });
 
     useEffect(() => {
+        // Fetch the token from local storage
         const token = localStorage.getItem('token');
-        if (!token) {
-            navigate('/login');
-            return;
+        if (token) {
+            try {
+                // Decode the token to get the user ID
+                const decodedToken = jwtDecode(token);
+                const userId = decodedToken._id;
+
+                // Fetch user data from the server using the user ID
+                const fetchUserData = async () => {
+                    try {
+                        const response = await axios.get(`http://localhost:8080/api/users/${userId}`);
+                        setFormData({
+                            firstname: response.data.firstName,
+                            lastname: response.data.lastName,
+                            email: response.data.email
+                        });
+                    } catch (error) {
+                        console.error('Error fetching user data:', error);
+                    }
+                };
+
+                fetchUserData();
+            } catch (error) {
+                console.error('Error decoding token:', error);
+            }
         }
+    }, []);
 
-        fetchUserData(token);
-    }, [fetchUserData, navigate]);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevState) => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
 
-    if (!user) return <div>Loading...</div>;
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // Fetch the token from local storage
+        const token = localStorage.getItem('token');
+        if (token) {
+            try {
+                // Decode the token to get the user ID
+                const decodedToken = jwtDecode(token);
+                const userId = decodedToken._id;
+
+                // Send the updated data to the server
+                const response = await axios.post('http://localhost:8080/api/users/updateProfile', {
+                    _id: userId,
+                    ...formData
+                });
+
+                if (response.data.success) {
+                    alert('Profile updated successfully!');
+                } else {
+                    alert('Error updating profile: ' + response.data.message);
+                }
+            } catch (error) {
+                console.error('Error updating profile:', error);
+            }
+        }
+    };
 
     return (
-        <div className="container mt-4">
-            <h2>Update Profile</h2>
-            <div className="card">
-                <div className="card-body">
-                    <h5 className="card-title">User Information</h5>
-                    <p className="card-text"><strong>Name:</strong> {user.firstName} {user.lastName}</p>
-                    <p className="card-text"><strong>Email:</strong> {user.email}</p>
-                </div>
-            </div>
+        <div>
+            <h1>Edit Profile</h1>
+            <form onSubmit={handleSubmit}>
+                <label>
+                    First Name:
+                    <input
+                        type="text"
+                        name="firstname"
+                        value={formData.firstname}
+                        onChange={handleChange}
+                    />
+                </label>
+                <br />
+                <label>
+                    Last Name:
+                    <input
+                        type="text"
+                        name="lastname"
+                        value={formData.lastname}
+                        onChange={handleChange}
+                    />
+                </label>
+                <br />
+                <label>
+                    Email:
+                    <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                    />
+                </label>
+                <br />
+                <button type="submit">Update Profile</button>
+            </form>
         </div>
     );
-}
+};
 
 export default UpdateProfile;

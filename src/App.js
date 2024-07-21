@@ -18,11 +18,10 @@ function App() {
       <Navbar /> 
       <Routes>
         {user && <Route path='/userDashboard' element={<UserDashboard />} />}
-        {user && <Route path='/update-profile' element={<UpdateProfile />} />}
+        {user && <Route path='/updateProfile' element={<UpdateProfile />} />}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/" element={<Home />} />
-        <Route path="/updateProfile" element={<UserDashboard/>}/>
         <Route path='/account' element={<Account/>}/>
       </Routes>
       </>
