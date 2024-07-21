@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';  // Adjust import to named import
-import styles from './styles.module.css';
+import {jwtDecode} from 'jwt-decode'; // Adjust import to default import
+import styles from '../Common/styles.module.css';
+import Sidebar from '../Common/UserSidebar';
 
 const UserDashboard = () => {
     const token = localStorage.getItem("token");
@@ -26,12 +26,15 @@ const UserDashboard = () => {
 
     return (
         <div className={styles.main_container}>
-            <nav className={styles.navbar}>
-                <button className={styles.white_btn} onClick={handleLogout}>
-                    Logout
-                </button>
-                <Link to="/userAccount">Account</Link>
-            </nav>
+            <header className={styles.header}>
+                <h1>HelpHub</h1>
+            </header>
+            <div className={styles.main_content}>
+                <Sidebar handleLogout={handleLogout} />
+                <div className={styles.content}>
+                    {/* Add any additional content or components here */}
+                </div>
+            </div>
         </div>
     );
 };

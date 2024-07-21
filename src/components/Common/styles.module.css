@@ -2,25 +2,47 @@
 
 .main_container {
     display: flex;
+    flex-direction: column; /* Stack header and main content vertically */
+    height: 100vh; /* Full viewport height */
 }
 
 .header {
+    width: 20%;
+    text-align: center;
+    background-color: #47b1af;
+    color:white;
+    padding: 1rem 0;
+    box-shadow: 0 4px 2px -2px gray;
+}
+
+.main_content {
+    display: flex;
+    flex: 1; /* Take the remaining space after the header */
+}
+
+.sidebar {
+    width: 20%; /* Adjusted to 20% for full height sidebar */
+    background-color: #343a40;
+    color: white;
+    display: flex;
+    flex-direction: column; /* Stack header and content vertically */
+    font-size: x-large;
+}
+
+.sidebar_header {
     width: 100%;
     text-align: center;
     background-color: #343a40;
     color: white;
-    padding: 1rem 0;
-    box-shadow: 0 4px 2px -2px gray;
-    margin-top: 0;
+    padding: 1rem;
+    box-shadow: 0 2px 2px -2px gray; 
+    font-size: x-large;/* Optional: Shadow for separation */
 }
 
-.sidebar {
-    width: 200px;
-    height: 100vh;
-    background-color: #343a40;
-    color: white;
-    padding: 1rem;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+.sidebar_content {
+    flex-grow: 1; /* Takes remaining space in the sidebar */
+    padding: 1rem; /* Add padding for content inside the sidebar */
+    overflow-y: auto; /* Add scroll if content overflows */
 }
 
 .sidebar ul {
@@ -30,6 +52,7 @@
 
 .sidebar ul li {
     margin: 1rem 0;
+    padding-left: 30px;
 }
 
 .sidebar ul li a, .sidebar ul li button {
@@ -51,4 +74,5 @@
 .content {
     flex-grow: 1;
     padding: 1rem;
+    background-color: #f8f9fa; /* Light background color for content area */
 }
