@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import {jwtDecode} from 'jwt-decode'; // Adjust import to default import
-import styles from '../Common/styles.module.css';
-import Sidebar from '../Common/UserSidebar';
+import styles from './styles.module.css';
+import ServiceProviderSidebar from './ServiceProvider_Sidebar';
 
-const UserDashboard = () => {
+
+const ServiceProviderDashboard = () => {
     const token = localStorage.getItem("token");
 
     useEffect(() => {
@@ -30,7 +31,7 @@ const UserDashboard = () => {
                 <h1>HelpHub</h1>
             </header>
             <div className={styles.main_content}>
-                <Sidebar handleLogout={handleLogout} />
+                <ServiceProviderSidebar handleLogout={handleLogout} />
                 <div className={styles.content}>
                     {/* Add any additional content or components here */}
                 </div>
@@ -39,4 +40,4 @@ const UserDashboard = () => {
     );
 };
 
-export default UserDashboard;
+export default ServiceProviderDashboard;

@@ -88,6 +88,10 @@ const ServUpdateProfile = () => {
         }
     };
 
+    const handleBack = () =>{
+        navigate("/serviceProviderDashboard");
+    }
+
     return (
         <div className="container mt-5">
             <div className="card shadow-lg rounded">
@@ -173,7 +177,8 @@ const ServUpdateProfile = () => {
                                 onChange={handleChange}
                             />
                         </div>
-                        <button type="submit" className="btn btn-success">Update Profile</button>
+                        <button type="submit" className="btn btn-warning">Update Profile</button>
+                        <button onClick={handleBack} className='btn btn-secondary m-3'>Back</button>
                     </form>
                 </div>
             </div>
