@@ -1,46 +1,76 @@
 import React, { useEffect, useState } from 'react';
-import { jwtDecode } from 'jwt-decode'; 
+import {jwtDecode} from 'jwt-decode'; // Correct import
+import { useNavigate } from 'react-router-dom';
 
 const Account = () => {
-    const [userEmail, setUserEmail] = useState(null);
+    const [userDetails, setUserDetails] = useState({
+        email: null,
+        firstName: null,
+        lastName: null
+    });
     const [error, setError] = useState(null);
-    const token = localStorage.getItem('token'); // Get token from localStorage
+    const token = localStorage.getItem('token');
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchUserEmail = async () => {
+        const fetchUserDetails = async () => {
             if (!token) {
                 setError('No token found in local storage.');
+                navigate('/login');
                 return;
             }
 
             try {
-                // Decode the token to get user ID
                 const decodedToken = jwtDecode(token);
                 const userId = decodedToken._id;
 
-                // Fetch user details using the user ID
-                const response = await fetch(`http://localhost:8080/api/users/${userId}`);
+                const response = await fetch(`http://localhost:8080/api/users/${userId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
 
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
 
                 const data = await response.json();
-                setUserEmail(data.email);
+                console.log('Fetched user details:', data);
+
+                setUserDetails({
+                    email: data.email,
+                    firstName: data.firstName,
+                    lastName: data.lastName
+                });
             } catch (error) {
                 console.error("Error fetching user:", error);
                 setError(`Error fetching user: ${error.message}`);
+                navigate('/login');
             }
         };
 
-        fetchUserEmail();
-    }, [token]);
+        fetchUserDetails();
+    }, [token, navigate]);
+
+    const handleEditClick = () => {
+        navigate('/update-profile');
+    };
 
     return (
         <div>
-            <h1>User Email</h1>
+            <h1>User Details</h1>
             {error && <p>{error}</p>}
-            {userEmail ? <p>Email: {userEmail}</p> : <p>Loading...</p>}
+            {userDetails.email ? (
+                <div>
+                    <p>First Name: {userDetails.firstName}</p>
+                    <p>Last Name: {userDetails.lastName}</p>
+                    <p>Email: {userDetails.email}</p>
+                    <button onClick={handleEditClick} className="btn btn-primary">Edit</button>
+                </div>
+            ) : (
+                <p>Loading...</p>
+            )}
         </div>
     );
 };
