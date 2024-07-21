@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import {jwtDecode} from 'jwt-decode'; // Correct import
 import { useNavigate } from 'react-router-dom';
+import {jwtDecode} from 'jwt-decode'; // Ensure correct import
 
 const Account = () => {
     const [userDetails, setUserDetails] = useState({
@@ -24,12 +24,7 @@ const Account = () => {
                 const decodedToken = jwtDecode(token);
                 const userId = decodedToken._id;
 
-                const response = await fetch(`http://localhost:8080/api/users/${userId}`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                    },
-                });
+                const response = await fetch(`http://localhost:8080/api/users/${userId}`);
 
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -54,7 +49,11 @@ const Account = () => {
     }, [token, navigate]);
 
     const handleEditClick = () => {
-        navigate('/update-profile');
+        if (token) {
+            navigate('/update-profile');
+        } else {
+            navigate('/login');
+        }
     };
 
     return (

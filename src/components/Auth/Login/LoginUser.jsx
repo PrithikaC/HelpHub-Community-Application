@@ -55,19 +55,24 @@ const Login = () => {
 						/>
 						{error && <div className={styles.error_msg}>{error}</div>}
 						<button type="submit" className={styles.green_btn}>
-							Sing In
+							Login
 						</button>
+						
 					</form>
+					<div className={styles.bottom_section}>
+                       <p>If you are a Service Provider, <a href="/LoginServ" className={styles.link}>click here</a></p>
+                   </div>
 				</div>
 				<div className={styles.right}>
-					<h1>New Here ?</h1>
-					<Link to="/signup">
+					<h1>New Here?</h1>
+					<Link to="/signupUse">
 						<button type="button" className={styles.white_btn}>
-							Sing Up
+							Sign Up
 						</button>
 					</Link>
 				</div>
 			</div>
+			
 		</div>
 	);
 };

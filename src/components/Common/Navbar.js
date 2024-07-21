@@ -24,10 +24,10 @@ function Navbar() {
                       <Link to="/" className="nav-link active" style={navLinkStyle}>Home</Link>
                     </li>
                     <li className="nav-item">
-                      <Link to="/login" className="nav-link active" style={navLinkStyle}>Login</Link>
+                      <Link to="/loginUser" className="nav-link active" style={navLinkStyle}>Login</Link>
                     </li>
                     <li className="nav-item">
-                      <Link to="/signup" className="nav-link active" style={navLinkStyle}>Sign up</Link>
+                      <Link to="/signupUser" className="nav-link active" style={navLinkStyle}>Sign up</Link>
                     </li>
                   </ul>
                 </div>
