@@ -8,6 +8,7 @@ import Navbar from './components/Common/Navbar';
 import UserDashboard from './components/Dashboard/UserDashboard';
 import {Route, Routes } from 'react-router-dom';
 import UpdateProfile from './Profile/UpdateProfile';
+import Account from './Profile/Account';
 
 function App() {
   const user = localStorage.getItem("token");
@@ -22,6 +23,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/" element={<Home />} />
         <Route path="/updateProfile" element={<UserDashboard/>}/>
+        <Route path='/account' element={<Account/>}/>
       </Routes>
       </>
   );

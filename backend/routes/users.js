@@ -24,4 +24,32 @@ router.post("/",async(req,res)=>{
     }
 })
 
+// Route to check if user exists
+router.get('/exists/:id', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (user) {
+            res.status(200).send({ exists: true });
+        } else {
+            res.status(404).send({ exists: false });
+        }
+    } catch (error) {
+        res.status(500).send({ message: "Internal server error" });
+    }
+});
+// Add this route to your users.js (or similar) router file
+router.get("/:id", async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id).select('email'); // Fetch only email
+        if (user) {
+            res.status(200).send(user);
+        } else {
+            res.status(404).send({ message: "User not found" });
+        }
+    } catch (error) {
+        res.status(500).send({ message: "Internal server error" });
+    }
+});
+
+
 module.exports = router;
