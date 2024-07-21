@@ -30,7 +30,7 @@ const UserDashboard = () => {
                 <button className={styles.white_btn} onClick={handleLogout}>
                     Logout
                 </button>
-                <Link to="/account">Account</Link>
+                <Link to="/userAccount">Account</Link>
             </nav>
         </div>
     );

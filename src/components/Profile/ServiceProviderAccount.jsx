@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { jwtDecode } from 'jwt-decode'; // Correct import
+import {jwtDecode} from 'jwt-decode'; // Correct import
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const UserAccount = () => {
+const ServiceProviderAccount = () => {
     const [userDetails, setUserDetails] = useState({
         email: null,
         firstName: null,
         lastName: null,
         phoneNumber: null,
-        address: null
+        city: null,
+        serviceType: null,
+        experience: null
     });
     const [error, setError] = useState(null);
     const token = localStorage.getItem('token');
@@ -19,7 +21,7 @@ const UserAccount = () => {
         const fetchUserDetails = async () => {
             if (!token) {
                 setError('No token found in local storage.');
-                navigate('/loginUser');
+                navigate('/login');
                 return;
             }
 
@@ -27,7 +29,7 @@ const UserAccount = () => {
                 const decodedToken = jwtDecode(token);
                 const userId = decodedToken._id;
 
-                const response = await fetch(`http://localhost:8080/api/users/${userId}`, {
+                const response = await fetch(`http://localhost:8080/api/serviceProvider/${userId}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -46,12 +48,14 @@ const UserAccount = () => {
                     firstName: data.firstName,
                     lastName: data.lastName,
                     phoneNumber: data.phoneNumber,
-                    address: data.address
+                    city: data.city,
+                    serviceType: data.serviceType,
+                    experience: data.experience
                 });
             } catch (error) {
                 console.error("Error fetching user:", error);
                 setError(`Error fetching user: ${error.message}`);
-                navigate('/loginUser');
+                navigate('/loginServ');
             }
         };
 
@@ -59,12 +63,12 @@ const UserAccount = () => {
     }, [token, navigate]);
 
     const handleEditClick = () => {
-        navigate('/userUpdateProfile');
+        navigate('/servUpdateProfile');
     };
 
     return (
         <div className="container mt-5">
-            <h1 className="mb-4 text-center text-dark-green">User Details</h1>
+            <h1 className="mb-4 text-center text-dark-green">Service Provider Details</h1>
             {error && <div className="alert alert-danger">{error}</div>}
             {userDetails.email ? (
                 <div className="card border-dark-green shadow-lg rounded mb-4">
@@ -74,7 +78,9 @@ const UserAccount = () => {
                         <p className="card-text"><strong>Last Name:</strong> {userDetails.lastName}</p>
                         <p className="card-text"><strong>Email:</strong> {userDetails.email}</p>
                         <p className="card-text"><strong>Phone Number:</strong> {userDetails.phoneNumber}</p>
-                        <p className="card-text"><strong>Address:</strong> {userDetails.address}</p>
+                        <p className="card-text"><strong>City:</strong> {userDetails.city}</p>
+                        <p className="card-text"><strong>Service Type:</strong> {userDetails.serviceType}</p>
+                        <p className="card-text"><strong>Experience:</strong> {userDetails.experience} years</p>
                         <button onClick={handleEditClick} className="btn btn-dark-green btn-lg">Edit Profile</button>
                     </div>
                 </div>
@@ -112,4 +118,4 @@ const UserAccount = () => {
     );
 };
 
-export default UserAccount;
+export default ServiceProviderAccount;

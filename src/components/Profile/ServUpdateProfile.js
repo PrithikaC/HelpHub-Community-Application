@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { jwtDecode } from 'jwt-decode'; // Corrected import
+import {jwtDecode} from 'jwt-decode'; // Corrected import
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 
-const UserUpdateProfile = () => {
+const ServUpdateProfile = () => {
     const [formData, setFormData] = useState({
-        firstname: '',
-        lastname: '',
+        firstName: '',
+        lastName: '',
         email: '',
         phoneNumber: '',
-        address: ''
+        city: '',
+        serviceType: '',
+        experience: ''
     });
 
-    const navigate=useNavigate();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -24,13 +26,15 @@ const UserUpdateProfile = () => {
 
                 const fetchUserData = async () => {
                     try {
-                        const response = await axios.get(`http://localhost:8080/api/users/${userId}`);
+                        const response = await axios.get(`http://localhost:8080/api/serviceProvider/${userId}`);
                         setFormData({
-                            firstname: response.data.firstName || '',
-                            lastname: response.data.lastName || '',
+                            firstName: response.data.firstName || '',
+                            lastName: response.data.lastName || '',
                             email: response.data.email || '',
                             phoneNumber: response.data.phoneNumber || '',
-                            address: response.data.address || ''
+                            city: response.data.city || '',
+                            serviceType: response.data.serviceType || '',
+                            experience: response.data.experience || ''
                         });
                     } catch (error) {
                         console.error('Error fetching user data:', error);
@@ -60,18 +64,20 @@ const UserUpdateProfile = () => {
                 const decodedToken = jwtDecode(token);
                 const userId = decodedToken._id;
 
-                const response = await axios.post('http://localhost:8080/api/users/updateProfile', {
+                const response = await axios.post('http://localhost:8080/api/serviceProvider/updateProfile', {
                     _id: userId,
-                    firstName: formData.firstname,
-                    lastName: formData.lastname,
+                    firstName: formData.firstName,
+                    lastName: formData.lastName,
                     email: formData.email,
                     phoneNumber: formData.phoneNumber,
-                    address: formData.address
+                    city: formData.city,
+                    serviceType: formData.serviceType,
+                    experience: formData.experience
                 });
 
                 if (response.data.success) {
                     alert('Profile updated successfully!');
-                    navigate("/userUpdateProfile.js");
+                    navigate("/serviceProviderAccount");
                 } else {
                     alert('Error updating profile: ' + response.data.message);
                 }
@@ -91,24 +97,24 @@ const UserUpdateProfile = () => {
                 <div className="card-body">
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
-                            <label htmlFor="firstname" className="form-label">First Name:</label>
+                            <label htmlFor="firstName" className="form-label">First Name:</label>
                             <input
                                 type="text"
-                                id="firstname"
-                                name="firstname"
+                                id="firstName"
+                                name="firstName"
                                 className="form-control"
-                                value={formData.firstname || ''}
+                                value={formData.firstName || ''}
                                 onChange={handleChange}
                             />
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="lastname" className="form-label">Last Name:</label>
+                            <label htmlFor="lastName" className="form-label">Last Name:</label>
                             <input
                                 type="text"
-                                id="lastname"
-                                name="lastname"
+                                id="lastName"
+                                name="lastName"
                                 className="form-control"
-                                value={formData.lastname || ''}
+                                value={formData.lastName || ''}
                                 onChange={handleChange}
                             />
                         </div>
@@ -135,13 +141,35 @@ const UserUpdateProfile = () => {
                             />
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="address" className="form-label">Address:</label>
+                            <label htmlFor="city" className="form-label">City:</label>
                             <input
                                 type="text"
-                                id="address"
-                                name="address"
+                                id="city"
+                                name="city"
                                 className="form-control"
-                                value={formData.address || ''}
+                                value={formData.city || ''}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="serviceType" className="form-label">Service Type:</label>
+                            <input
+                                type="text"
+                                id="serviceType"
+                                name="serviceType"
+                                className="form-control"
+                                value={formData.serviceType || ''}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="experience" className="form-label">Experience (years):</label>
+                            <input
+                                type="number"
+                                id="experience"
+                                name="experience"
+                                className="form-control"
+                                value={formData.experience || ''}
                                 onChange={handleChange}
                             />
                         </div>
@@ -186,4 +214,4 @@ const UserUpdateProfile = () => {
     );
 };
 
-export default UserUpdateProfile;
+export default ServUpdateProfile;

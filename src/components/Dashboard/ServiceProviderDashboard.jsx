@@ -30,7 +30,7 @@ const ServiceProviderDashboard = () => {
                 <button className={styles.white_btn} onClick={handleLogout}>
                     Logout
                 </button>
-                <Link to="/account">Account</Link>
+                <Link to="/serviceProvideraccount">Account</Link>
             </nav>
         </div>
     );

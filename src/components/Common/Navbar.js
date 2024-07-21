@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+
 // Inline CSS for white text
 const navLinkStyle = {
   color: 'white',
