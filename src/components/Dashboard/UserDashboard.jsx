@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';  // Adjust import to named import
 import styles from './styles.module.css';
 
 const UserDashboard = () => {
+    const [userId, setUserId] = useState(null);
     const token = localStorage.getItem("token");
 
     useEffect(() => {
@@ -11,6 +12,7 @@ const UserDashboard = () => {
             try {
                 const decodedToken = jwtDecode(token);
                 console.log(decodedToken);
+                setUserId(decodedToken._id); // Extract and store the _id from the token
             } catch (error) {
                 console.error("Failed to decode token:", error);
             }
@@ -32,6 +34,13 @@ const UserDashboard = () => {
                 </button>
                 <Link to="/updateProfile">Account</Link>
             </nav>
+            <div className={styles.user_id}>
+                {userId ? (
+                    <p>User ID: {userId}</p>
+                ) : (
+                    <p>Loading user ID...</p>
+                )}
+            </div>
         </div>
     );
 };
