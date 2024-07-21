@@ -71,7 +71,7 @@ const UserUpdateProfile = () => {
 
                 if (response.data.success) {
                     alert('Profile updated successfully!');
-                    navigate("/userUpdateProfile.js");
+                    navigate("/userUpdateProfile");
                 } else {
                     alert('Error updating profile: ' + response.data.message);
                 }
