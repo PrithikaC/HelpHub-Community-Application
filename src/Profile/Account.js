@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode'; // Correct import
 import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Account = () => {
     const [userDetails, setUserDetails] = useState({
         email: null,
         firstName: null,
-        lastName: null
+        lastName: null,
+        phoneNumber: null,
+        address: null
     });
     const [error, setError] = useState(null);
     const token = localStorage.getItem('token');
@@ -41,7 +44,9 @@ const Account = () => {
                 setUserDetails({
                     email: data.email,
                     firstName: data.firstName,
-                    lastName: data.lastName
+                    lastName: data.lastName,
+                    phoneNumber: data.phoneNumber,
+                    address: data.address
                 });
             } catch (error) {
                 console.error("Error fetching user:", error);
@@ -58,19 +63,51 @@ const Account = () => {
     };
 
     return (
-        <div>
-            <h1>User Details</h1>
-            {error && <p>{error}</p>}
+        <div className="container mt-5">
+            <h1 className="mb-4 text-center text-dark-green">User Details</h1>
+            {error && <div className="alert alert-danger">{error}</div>}
             {userDetails.email ? (
-                <div>
-                    <p>First Name: {userDetails.firstName}</p>
-                    <p>Last Name: {userDetails.lastName}</p>
-                    <p>Email: {userDetails.email}</p>
-                    <button onClick={handleEditClick} className="btn btn-primary">Edit</button>
+                <div className="card border-dark-green shadow-lg rounded mb-4">
+                    <div className="card-body">
+                        <h5 className="card-title text-dark-green mb-4">Profile Information</h5>
+                        <p className="card-text"><strong>First Name:</strong> {userDetails.firstName}</p>
+                        <p className="card-text"><strong>Last Name:</strong> {userDetails.lastName}</p>
+                        <p className="card-text"><strong>Email:</strong> {userDetails.email}</p>
+                        <p className="card-text"><strong>Phone Number:</strong> {userDetails.phoneNumber}</p>
+                        <p className="card-text"><strong>Address:</strong> {userDetails.address}</p>
+                        <button onClick={handleEditClick} className="btn btn-dark-green btn-lg">Edit Profile</button>
+                    </div>
                 </div>
             ) : (
-                <p>Loading...</p>
+                <p className="text-center">Loading...</p>
             )}
+            <style jsx>{`
+                .text-dark-green {
+                    color: #004d00; /* Dark green color for text */
+                }
+
+                .border-dark-green {
+                    border-color: #004d00 !important; /* Dark green border for card */
+                }
+
+                .btn-dark-green {
+                    background-color: #004d00; /* Dark green background for button */
+                    border: none;
+                    color: white;
+                }
+
+                .btn-dark-green:hover {
+                    background-color: #003300; /* Even darker green for hover effect */
+                }
+
+                .shadow-lg {
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                }
+
+                .rounded {
+                    border-radius: 0.75rem; /* Rounded corners for card */
+                }
+            `}</style>
         </div>
     );
 };
