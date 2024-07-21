@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';  // Adjust import to named import
-import styles from './styles.module.css';
+import {jwtDecode} from 'jwt-decode';
+import Sidebar from '../Common/Sidebar';
+import styles from '../Common/styles.module.css';
 
 const UserDashboard = () => {
     const token = localStorage.getItem("token");
@@ -26,12 +26,13 @@ const UserDashboard = () => {
 
     return (
         <div className={styles.main_container}>
-            <nav className={styles.navbar}>
-                <button className={styles.white_btn} onClick={handleLogout}>
-                    Logout
-                </button>
-                <Link to="/account">Account</Link>
-            </nav>
+            <Sidebar handleLogout={handleLogout} />
+            <div className={styles.content}>
+                <header className={styles.header}>
+                    <h1>HelpHub Community</h1>
+                </header>
+                {/* Add any additional content or components here */}
+            </div>
         </div>
     );
 };

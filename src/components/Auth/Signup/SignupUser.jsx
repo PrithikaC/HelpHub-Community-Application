@@ -36,6 +36,7 @@ const Signup = () => {
     };
 
     return (
+       <>
         <div className={styles.signup_container}>
             <div className={styles.signup_form_container}>
                 <div className={styles.left}>
@@ -94,10 +95,11 @@ const Signup = () => {
                 </div>
             </div>
             {/* New Bottom Section */}
-            <div className={styles.bottom_section}>
-                <p>If you are a Service Provider, <a href="/SignupServ" className={styles.link}>click here</a></p>
-            </div>
         </div>
+        <div className={styles.bottom_section}>
+        <p>If you are a Service Provider, <a href="/SignupServ" className={styles.link}>click here</a></p>
+        </div>
+       </>
     );
 };
 
