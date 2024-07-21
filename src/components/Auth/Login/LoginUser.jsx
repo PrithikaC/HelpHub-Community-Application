@@ -60,7 +60,7 @@ const Login = () => {
 						
 					</form>
 					<div className={styles.bottom_section}>
-                       <p>If you are a Service Provider, <a href="/LoginServ" className={styles.link}>click here</a></p>
+                       <p>If you are a Service Provider, <a href="/loginServ" className={styles.link}>click here</a></p>
                    </div>
 				</div>
 				<div className={styles.right}>
