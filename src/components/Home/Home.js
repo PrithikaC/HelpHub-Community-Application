@@ -1,9 +1,11 @@
 import React from 'react';
 import Slider from '../Common/Slider';
+import Navbar from '../Common/Navbar'; 
 
 function Home() {
   return (
     <div>
+      <Navbar/>
       <Slider />
       <section className='section'>
         <div className='container'>

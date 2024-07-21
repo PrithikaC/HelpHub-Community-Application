@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';  // Adjust import to named import
 import styles from './styles.module.css';
 
-const UserDashboard = () => {
+const ServiceProviderDashboard = () => {
     const token = localStorage.getItem("token");
 
     useEffect(() => {
@@ -30,10 +30,10 @@ const UserDashboard = () => {
                 <button className={styles.white_btn} onClick={handleLogout}>
                     Logout
                 </button>
-                <Link to="/userAccount">Account</Link>
+                <Link to="/serviceProvideraccount">Account</Link>
             </nav>
         </div>
     );
 };
 
-export default UserDashboard;
+export default ServiceProviderDashboard;
