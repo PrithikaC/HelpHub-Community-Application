@@ -14,7 +14,9 @@ const UserUpdateProfile = () => {
     });
 
     const navigate=useNavigate();
-
+    const handleBack=()=>{
+        navigate("/userDashboard");
+    }
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
@@ -145,7 +147,8 @@ const UserUpdateProfile = () => {
                                 onChange={handleChange}
                             />
                         </div>
-                        <button type="submit" className="btn btn-success">Update Profile</button>
+                        <button type="submit" className="btn btn-warning">Update Profile</button>
+                        <button onClick={handleBack} className='btn btn-secondary m-3'>Back</button>
                     </form>
                 </div>
             </div>

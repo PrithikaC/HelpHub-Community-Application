@@ -14,7 +14,9 @@ const UserAccount = () => {
     const [error, setError] = useState(null);
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
-
+    const handleBack=()=>{
+        navigate("/userDashboard");
+    }
     useEffect(() => {
         const fetchUserDetails = async () => {
             if (!token) {
@@ -76,6 +78,7 @@ const UserAccount = () => {
                         <p className="card-text"><strong>Phone Number:</strong> {userDetails.phoneNumber}</p>
                         <p className="card-text"><strong>Address:</strong> {userDetails.address}</p>
                         <button onClick={handleEditClick} className="btn btn-dark-green btn-lg">Edit Profile</button>
+                        <button onClick={handleBack} className='btn btn-secondary m-3'>Back</button>
                     </div>
                 </div>
             ) : (
