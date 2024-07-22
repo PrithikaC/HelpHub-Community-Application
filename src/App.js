@@ -1,13 +1,13 @@
 import React from 'react';
 
 import './App.css';
-import Login from './components/Auth/Login/LoginUser';
+import LoginUser from './components/Auth/Login/LoginUser';
 import Home from './components/Home/Home';
 import UserDashboard from './components/Dashboard/UserDashboard';
 import {Route, Routes } from 'react-router-dom';
 import UserUpdateProfile from './components/Profile/UserUpdateProfile';
 import UserAccount from './components/Profile/UserAccount';
-import Signup from './components/Auth/Signup/SignupUser';
+import SignupUser from './components/Auth/Signup/SignupUser';
 import LoginServ from './components/Auth/Login/LoginServ';
 import SignupServ from './components/Auth/Signup/SignupServ';
 import ServiceProviderDashboard from './components/Dashboard/ServiceProviderDashboard';
@@ -22,9 +22,9 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/signupUser" element={<Signup />} />
+        <Route path="/signupUser" element={<SignupUser />} />
         <Route path="/signupServ" element={<SignupServ />} />
-        <Route path="/loginUser" element={<Login />} />
+        <Route path="/loginUser" element={<LoginUser />} />
         <Route path="/loginServ" element={<LoginServ/>} />
         {user && <Route path='/userDashboard' element={<UserDashboard />} />}
         <Route path='/userAccount' element={<UserAccount/>}/>

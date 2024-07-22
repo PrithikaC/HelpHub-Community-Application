@@ -3,7 +3,7 @@ import styles from './styles.module.css';
 import { useState } from 'react';
 import axios from 'axios';
 
-const Signup = () => {
+const SignupUser = () => {
     const [data, setData] = useState({
         firstName: "",
         lastName: "",
@@ -24,7 +24,7 @@ const Signup = () => {
             const url = "http://localhost:8080/api/users";
             const { data: res } = await axios.post(url, data);
 
-            navigate("/login");
+            navigate("/loginUser");
 
             console.log(res.message);
 
@@ -103,4 +103,4 @@ const Signup = () => {
     );
 };
 
-export default Signup;
+export default SignupUser;

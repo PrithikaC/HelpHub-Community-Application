@@ -25,8 +25,8 @@ const validate = (data) => {
         lastName: Joi.string().required().label("Last Name"),
         email: Joi.string().email().required().label("Email"),
         password: passwordComplexity().required().label("Password"),
-        phoneNumber: Joi.string().required().label("Phone Number"), // Add validation for phone number
-        address: Joi.string().required().label("Address") // Add validation for address
+        phoneNumber: Joi.string().label("Phone Number"), // Add validation for phone number
+        address: Joi.string().label("Address") // Add validation for address
     });
     return schema.validate(data);
 };
