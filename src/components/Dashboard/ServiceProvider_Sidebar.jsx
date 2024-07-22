@@ -16,7 +16,7 @@ const ServiceProviderSidebar = ({ handleLogout }) => {
                     <Link to="/myServices">My Services</Link>
                 </li>
                 <li>
-                    <Link to="/addService">Add Service</Link>
+                    <Link to="/addEmployee">Add Employee</Link>
                 </li>
                 <li>
                     <Link to="/updateService">Update Service</Link>

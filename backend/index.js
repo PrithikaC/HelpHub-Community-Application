@@ -7,6 +7,7 @@ const userRoutes = require("./routes/users");
 const authRoutes = require("./routes/auth");
 const serviceProviderRoutes = require("./routes/serviceProvider"); 
 const authserviceProviderRoutes = require("./routes/authServiceProvider");
+const employeesRoutes = require("./routes/employees");
 
 // Database connection
 connection();
@@ -18,8 +19,9 @@ app.use(cors());
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
-app.use("/api/serviceProvider", serviceProviderRoutes); // Add service provider routes
+app.use("/api/serviceProvider", serviceProviderRoutes); 
 app.use("/api/authServiceProvider",authserviceProviderRoutes);
+app.use("/api/employees",employeesRoutes);
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log(`Listening on port ${port}`));

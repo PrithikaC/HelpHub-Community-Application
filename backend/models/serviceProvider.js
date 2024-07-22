@@ -10,8 +10,9 @@ const serviceProviderSchema = new mongoose.Schema({
     password: { type: String, required: true },
     phoneNumber: { type: String, required: true },
     city: { type: String, required: true },
-    serviceType: { type: String, required: true }, 
-    experience: { type: Number, required: true }, 
+    serviceType: { type: String, required: true },
+    experience: { type: Number, required: true },
+    employees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Employee' }]
 });
 
 serviceProviderSchema.methods.generateAuthToken = function() {
