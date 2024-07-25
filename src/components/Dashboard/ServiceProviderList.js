@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Modal, Button } from 'react-bootstrap';
 
 const ServiceProviderList = () => {
     const [serviceProviders, setServiceProviders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [selectedProvider, setSelectedProvider] = useState(null);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         const fetchServiceProviders = async () => {
@@ -25,6 +28,16 @@ const ServiceProviderList = () => {
         fetchServiceProviders();
     }, []);
 
+    const handleShowModal = (provider) => {
+        setSelectedProvider(provider);
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setSelectedProvider(null);
+        setShowModal(false);
+    };
+
     if (loading) return <div>Loading...</div>;
     if (error) return <div>{error}</div>;
 
@@ -42,11 +55,47 @@ const ServiceProviderList = () => {
                                 <p className="card-text"><strong>Experience:</strong> {provider.experience} years</p>
                                 <p className="card-text"><strong>Email:</strong> {provider.email}</p>
                                 <p className="card-text"><strong>Phone:</strong> {provider.phoneNumber}</p>
+                                <Button 
+                                    variant="primary" 
+                                    onClick={() => handleShowModal(provider)}
+                                >
+                                    Avail Service
+                                </Button>
                             </div>
                         </div>
                     </div>
                 ))}
             </div>
+
+            {selectedProvider && (
+                <Modal show={showModal} onHide={handleCloseModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Request Service</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <h5>{selectedProvider.firstName} {selectedProvider.lastName}</h5>
+                        <p><strong>Service Type:</strong> {selectedProvider.serviceType}</p>
+                        <p><strong>City:</strong> {selectedProvider.city}</p>
+                        <p><strong>Experience:</strong> {selectedProvider.experience} years</p>
+                        <p><strong>Email:</strong> {selectedProvider.email}</p>
+                        <p><strong>Phone:</strong> {selectedProvider.phoneNumber}</p>
+                        <form>
+                            <div className="mb-3">
+                                <label htmlFor="message" className="form-label">Your Request</label>
+                                <textarea className="form-control" id="message" rows="3"></textarea>
+                            </div>
+                        </form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleCloseModal}>
+                            Close
+                        </Button>
+                        <Button variant="primary" onClick={() => alert('Service requested!')}>
+                            Send Request
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            )}
         </div>
     );
 };
