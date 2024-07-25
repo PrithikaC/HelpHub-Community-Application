@@ -29,7 +29,8 @@ const validateServiceProvider = (data) => {
         password: passwordComplexity().required().label("Password"),
         phoneNumber: Joi.string().required().label("Phone Number"),
         city: Joi.string().required().label("City"),
-        serviceType: Joi.string().required().label("Service Type")
+        serviceType: Joi.string().required().label("Service Type"),
+        experience: Joi.number().required().label("Experience"),
     });
     return schema.validate(data);
 };

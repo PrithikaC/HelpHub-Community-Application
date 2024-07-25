@@ -80,6 +80,7 @@ router.post('/updateProfile', async (req, res) => {
         res.status(500).json({ success: false, message: 'Server error: ' + error.message });
     }
 });
+
 // Route to get all service providers
 router.get("/", async (req, res) => {
     try {
@@ -89,6 +90,5 @@ router.get("/", async (req, res) => {
         res.status(500).send({ message: "Internal server error" });
     }
 });
-
 
 module.exports = router;

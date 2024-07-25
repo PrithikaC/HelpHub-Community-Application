@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from './styles.module.css'; // Create and style this CSS module as needed
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ServiceProviderList = () => {
     const [serviceProviders, setServiceProviders] = useState([]);
@@ -9,12 +9,15 @@ const ServiceProviderList = () => {
     useEffect(() => {
         const fetchServiceProviders = async () => {
             try {
-                const response = await fetch('/api/serviceProviders'); // Adjust the endpoint as needed
+                const response = await fetch('http://localhost:8080/api/serviceProvider');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch service providers');
+                }
                 const data = await response.json();
                 setServiceProviders(data);
                 setLoading(false);
             } catch (error) {
-                setError('Failed to fetch service providers');
+                setError(error.message);
                 setLoading(false);
             }
         };
@@ -26,20 +29,24 @@ const ServiceProviderList = () => {
     if (error) return <div>{error}</div>;
 
     return (
-        <div className={styles.container}>
-            <h2>Service Providers</h2>
-            <ul className={styles.list}>
+        <div className="container mt-5">
+            <h2 className="text-center mb-4">Service Providers</h2>
+            <div className="row">
                 {serviceProviders.map((provider) => (
-                    <li key={provider._id} className={styles.item}>
-                        <h3>{provider.firstName} {provider.lastName}</h3>
-                        <p>Service Type: {provider.serviceType}</p>
-                        <p>City: {provider.city}</p>
-                        <p>Experience: {provider.experience} years</p>
-                        <p>Email: {provider.email}</p>
-                        <p>Phone: {provider.phoneNumber}</p>
-                    </li>
+                    <div key={provider._id} className="col-md-4 mb-4">
+                        <div className="card h-100">
+                            <div className="card-body">
+                                <h5 className="card-title">{provider.firstName} {provider.lastName}</h5>
+                                <p className="card-text"><strong>Service Type:</strong> {provider.serviceType}</p>
+                                <p className="card-text"><strong>City:</strong> {provider.city}</p>
+                                <p className="card-text"><strong>Experience:</strong> {provider.experience} years</p>
+                                <p className="card-text"><strong>Email:</strong> {provider.email}</p>
+                                <p className="card-text"><strong>Phone:</strong> {provider.phoneNumber}</p>
+                            </div>
+                        </div>
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 };
