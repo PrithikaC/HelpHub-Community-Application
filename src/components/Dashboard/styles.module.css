@@ -85,3 +85,28 @@
 .mr-sm-2 {
     margin-right: 10px;
 }
+.serviceProviderList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.serviceProviderCard {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    width: calc(33.333% - 2rem); /* Three cards per row with gaps */
+    box-sizing: border-box;
+}
+
+.serviceProviderCard h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.serviceProviderCard p {
+    margin: 0.25rem 0;
+}

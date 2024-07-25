@@ -80,5 +80,15 @@ router.post('/updateProfile', async (req, res) => {
         res.status(500).json({ success: false, message: 'Server error: ' + error.message });
     }
 });
+// Route to get all service providers
+router.get("/", async (req, res) => {
+    try {
+        const serviceProviders = await ServiceProvider.find().select('-password'); // Exclude password field
+        res.status(200).send(serviceProviders);
+    } catch (error) {
+        res.status(500).send({ message: "Internal server error" });
+    }
+});
+
 
 module.exports = router;
