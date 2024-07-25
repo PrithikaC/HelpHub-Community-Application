@@ -76,3 +76,12 @@
     padding: 1rem;
     background-color: #f8f9fa; /* Light background color for content area */
 }
+.search-bar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.mr-sm-2 {
+    margin-right: 10px;
+}

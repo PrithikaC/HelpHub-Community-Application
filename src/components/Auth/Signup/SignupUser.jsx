@@ -97,7 +97,7 @@ const SignupUser = () => {
             {/* New Bottom Section */}
         </div>
         <div className={styles.bottom_section}>
-        <p>If you are a Service Provider, <a href="/SignupServ" className={styles.link}>click here</a></p>
+       <center><p>If you are a Service Provider, <a href="/SignupServ" className={styles.link}>click here</a></p></center> 
         </div>
        </>
     );
