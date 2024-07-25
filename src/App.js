@@ -13,7 +13,6 @@ import SignupServ from './components/Auth/Signup/SignupServ';
 import ServiceProviderDashboard from './components/Dashboard/ServiceProviderDashboard';
 import ServiceProviderAccount from './components/Profile/ServiceProviderAccount';
 import ServUpdateProfile from './components/Profile/ServUpdateProfile';
-import ServiceProviderAddEmployee from './components/Profile/ServiceProviderAddEmployee';
 
 function App() {
   const user = localStorage.getItem("token");
@@ -32,7 +31,6 @@ function App() {
         <Route path="/serviceProviderDashboard" element={<ServiceProviderDashboard/>}/>
         <Route path="/serviceProviderAccount" element={<ServiceProviderAccount/>}/>
         <Route path="/servUpdateProfile" element={<ServUpdateProfile/>}/>
-        <Route path="/addEmployee" element={<ServiceProviderAddEmployee/>}/>
         
         
       </Routes>

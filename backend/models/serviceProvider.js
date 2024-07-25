@@ -11,8 +11,7 @@ const serviceProviderSchema = new mongoose.Schema({
     phoneNumber: { type: String, required: true },
     city: { type: String, required: true },
     serviceType: { type: String, required: true },
-    experience: { type: Number, required: true },
-    employees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Employee' }]
+    experience: { type: Number, required: true }
 });
 
 serviceProviderSchema.methods.generateAuthToken = function() {
@@ -30,8 +29,7 @@ const validateServiceProvider = (data) => {
         password: passwordComplexity().required().label("Password"),
         phoneNumber: Joi.string().required().label("Phone Number"),
         city: Joi.string().required().label("City"),
-        serviceType: Joi.string().required().label("Service Type"),
-        experience: Joi.number().required().label("Experience"),
+        serviceType: Joi.string().required().label("Service Type")
     });
     return schema.validate(data);
 };
