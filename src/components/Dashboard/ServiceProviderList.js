@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from './ServiceProviderList.module.css'; // Create and style this CSS module as needed
+import styles from './styles.module.css'; // Create and style this CSS module as needed
 
 const ServiceProviderList = () => {
     const [serviceProviders, setServiceProviders] = useState([]);

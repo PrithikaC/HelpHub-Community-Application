@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import {jwtDecode} from 'jwt-decode'; // Adjust import to default import
 import styles from './styles.module.css';
 import UserSidebar from './UserSidebar';
+import ServiceProviderList from './ServiceProviderList';
 
 const UserDashboard = () => {
     const token = localStorage.getItem("token");
@@ -32,7 +33,7 @@ const UserDashboard = () => {
             <div className={styles.main_content}>
                 <UserSidebar handleLogout={handleLogout} />
                 <div className={styles.content}>
-                    {/* Add any additional content or components here */}
+                    <ServiceProviderList />
                 </div>
             </div>
         </div>

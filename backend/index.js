@@ -7,9 +7,7 @@ const userRoutes = require("./routes/users");
 const authRoutes = require("./routes/auth");
 const serviceProviderRoutes = require("./routes/serviceProvider"); 
 const authserviceProviderRoutes = require("./routes/authServiceProvider");
-const employeesRoutes = require("./routes/employees");
 
-const searchRoutes = require('./routes/search'); // Ensure this path is correct
 
 
 // Database connection
@@ -24,8 +22,6 @@ app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/serviceProvider", serviceProviderRoutes); 
 app.use("/api/authServiceProvider",authserviceProviderRoutes);
-app.use("/api/employees",employeesRoutes);
-app.use('/api', searchRoutes); // Add this line
 
 
 const port = process.env.PORT || 8080;
