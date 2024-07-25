@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {jwtDecode} from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode'; // Ensure you import correctly
 import styles from './styles.module.css';
 import UserSidebar from './UserSidebar';
-
+import SearchBar from './SearchBar';
 
 const UserDashboard = () => {
     const token = localStorage.getItem("token");
@@ -29,6 +29,7 @@ const UserDashboard = () => {
     const handleSearch = async (query) => {
         try {
             const response = await fetch(`/api/search?query=${query}`);
+            if (!response.ok) throw new Error('Network response was not ok');
             const results = await response.json();
             setSearchResults(results);
         } catch (error) {
@@ -44,12 +45,19 @@ const UserDashboard = () => {
             <div className={styles.main_content}>
                 <UserSidebar handleLogout={handleLogout} />
                 <div className={styles.content}>
+                    <ServiceProviderList />
+                </div>
+                <div className={styles.content}>
                     <SearchBar onSearch={handleSearch} />
                     {/* Display search results here */}
                     <div>
-                        {searchResults.map(result => (
-                            <div key={result._id}>{result.name}</div>
-                        ))}
+                        {searchResults.length > 0 ? (
+                            searchResults.map(result => (
+                                <div key={result._id}>{result.name}</div>
+                            ))
+                        ) : (
+                            <div>No results found</div>
+                        )}
                     </div>
                 </div>
             </div>
