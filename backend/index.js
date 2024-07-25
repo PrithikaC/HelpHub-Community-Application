@@ -9,6 +9,9 @@ const serviceProviderRoutes = require("./routes/serviceProvider");
 const authserviceProviderRoutes = require("./routes/authServiceProvider");
 const employeesRoutes = require("./routes/employees");
 
+const searchRoutes = require('./routes/search'); // Ensure this path is correct
+
+
 // Database connection
 connection();
 
@@ -22,6 +25,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/serviceProvider", serviceProviderRoutes); 
 app.use("/api/authServiceProvider",authserviceProviderRoutes);
 app.use("/api/employees",employeesRoutes);
+app.use('/api', searchRoutes); // Add this line
+
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log(`Listening on port ${port}`));

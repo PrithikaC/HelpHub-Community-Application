@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './styles.module.css';
+import styles from './styles.module.css'; // Import the CSS module
 
 const SearchBar = ({ onSearch }) => {
     const [query, setQuery] = useState('');
@@ -10,15 +10,15 @@ const SearchBar = ({ onSearch }) => {
     };
 
     return (
-        <form className="form-inline search-bar" onSubmit={handleSearch}>
+        <form className={styles.search_bar} onSubmit={handleSearch}>
             <input
                 type="text"
-                className="form-control mr-sm-2"
+                className={styles.search_input} // Use CSS module class
                 placeholder="Search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
             />
-            <button type="submit" className="btn btn-outline-success">Search</button>
+            <button type="submit" className={styles.search_button}>Search</button>
         </form>
     );
 };
