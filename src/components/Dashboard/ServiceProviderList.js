@@ -1,32 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react'; // Ensure hooks are imported
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, Button } from 'react-bootstrap';
 
-const ServiceProviderList = () => {
-    const [serviceProviders, setServiceProviders] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+const ServiceProviderList = ({ providers }) => {
     const [selectedProvider, setSelectedProvider] = useState(null);
     const [showModal, setShowModal] = useState(false);
-
-    useEffect(() => {
-        const fetchServiceProviders = async () => {
-            try {
-                const response = await fetch('http://localhost:8080/api/serviceProvider');
-                if (!response.ok) {
-                    throw new Error('Failed to fetch service providers');
-                }
-                const data = await response.json();
-                setServiceProviders(data);
-                setLoading(false);
-            } catch (error) {
-                setError(error.message);
-                setLoading(false);
-            }
-        };
-
-        fetchServiceProviders();
-    }, []);
 
     const handleShowModal = (provider) => {
         setSelectedProvider(provider);
@@ -38,14 +16,11 @@ const ServiceProviderList = () => {
         setShowModal(false);
     };
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>{error}</div>;
-
     return (
         <div className="container mt-5">
             <h2 className="text-center mb-4">Service Providers</h2>
             <div className="row">
-                {serviceProviders.map((provider) => (
+                {providers.map((provider) => (
                     <div key={provider._id} className="col-md-4 mb-4">
                         <div className="card h-100">
                             <div className="card-body">
