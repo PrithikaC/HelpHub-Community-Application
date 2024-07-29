@@ -5,15 +5,12 @@ import styles from './styles.module.css';
 const UserSidebar = ({ handleLogout }) => {
     return (
         <div className={styles.sidebar}>
-          
             <ul>
                 <li><Link to="/home">Home</Link></li>
                 <li><Link to="/useraccount">My Account</Link></li>
-                <li><Link to="/usercart">My Cart</Link></li>
+                <li><Link to="/usercart">My Cart</Link></li> {/* Ensure this path matches your routing */}
                 <li><button onClick={handleLogout}>Logout</button></li>
             </ul>
-            
-           
         </div>
     );
 };
